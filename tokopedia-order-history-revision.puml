@@ -1,0 +1,96 @@
+@startuml
+entity Produk {
+    kode : text <PK>
+    --
+    nama : text
+    nama_lower : text
+    berat : number
+    harga : number
+}
+
+entity Order {
+    kode : text <PK>
+    --
+    kode_pembeli : text <FK>
+    kode_alamat : text <FK>
+    kode_metode_pembayaran : text <FK>
+    kode_kurir : text <FK>
+    kode_seller : text <FK>
+    --
+    tanggal : date
+    total_ongkos : number
+    biaya_jasa : number
+    nama_pembeli : text
+    nama_penjual : text
+    nama_metode_pembayaran : text
+    nama_kurir : text
+    nama_alamat : text
+    alamat_alamat : text
+    alamat_provinsi : text
+    alamat_kota : text
+    alamat_kodepost : text
+    jumlah_produk : number
+    jumlah_harga_produk : number
+    jumlah_berat_produk : number
+    jumlah_belanja : number
+    jumlah_tagihan : number
+    jumlah_harga_kurir : number
+}
+
+entity DetailOrder {
+    kode_produk : text <PK> <FK>
+    kode_order : text <PK> <FK>
+    jumlah_produk : number
+    jumlah_harga_produk : number
+    nama_produk : text
+    berat_produk : text
+    harga_produk : number
+    --
+    jumlah : number
+}
+
+entity Pembeli {
+    kode : text <PK>
+    --
+    nama : text
+}
+
+entity Penjual {
+    kode : text <PK>
+    --
+    nama : text
+}
+
+entity Alamat{
+    kode : text <PK>
+    --
+    kode_pembeli : text <FK>
+    --
+    nama : text
+    alamat : text
+    kode_pos : text
+    kota : text
+    provinsi : text
+    negara : text
+}
+
+entity MetodePembayaran {
+    kode : text <PK>
+    --
+    nama : text
+}
+
+entity Kurir {
+    kode : text <PK>
+    --
+    nama : text
+}
+
+Order ||--|{ DetailOrder
+DetailOrder ||--|{ Produk
+Pembeli ||--o{ Alamat
+Alamat ||--o{ Order
+Penjual ||--o{ Produk
+MetodePembayaran ||--o{ Order
+Kurir ||--o{ Order
+@enduml
